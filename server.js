@@ -2,6 +2,11 @@ import express from 'express';
 import path from 'path';
 import {fileURLToPath} from 'url';
 
+
+import indexRoutes from './src/routes/index.js';
+import accountRoutes from './src/routes/accountRoutes.js';
+import vehicleRoutes from './src/routes/vehicleRoutes.js';
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -18,17 +23,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Home route
-app.get('/', (req, res) => {
-  res.render('index', {
-    title: 'Hanks Auto Sales'
-  });
-});
-
-// Temporarily testing this route
-app.get('/health', (req, res) => {
-  res.send('Used Car Dealership app is running');
-});
+// Home, account, vehicle route
+app.use('/', indexRoutes);
+app.use('/account', accountRoutes);
+app.use('/vehicles', vehicleRoutes);
 
 // 404 page
 app.use((req, res) => {
