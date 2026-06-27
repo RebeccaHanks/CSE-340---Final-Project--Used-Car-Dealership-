@@ -1,8 +1,9 @@
 import express from 'express';
-import { buildVehicles } from '../controllers/vehicle.js';
+import { showVehicles, showVehicleDetail } from '../controllers/vehicle.js';
 
 const router = express.Router();
 
-router.get('/', buildVehicles);
+router.get('/', showVehicles);
+router.get('/:id', showVehicleDetail);
 
 export default router;

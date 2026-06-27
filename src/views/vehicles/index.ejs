@@ -1,2 +1,12 @@
-<h1>Vehicle Inventory</h1>
-<p>Vehicles will hopefully show here later from the database.</p>
+<h1>Vehicles</h1>
+
+<section class="vehicle-list">
+  <% vehicles.forEach(vehicle => { %>
+    <div class="vehicle-card">
+      <h2><%= vehicle.year %> <%= vehicle.make %> <%= vehicle.model %></h2>
+      <p>Price: $<%= vehicle.price %></p>
+      <p>Mileage: <%= vehicle.mileage %> miles</p>
+      <a href="/vehicles/<%= vehicle.vehicle_id %>">View Details</a>
+    </div>
+  <% }) %>
+</section>

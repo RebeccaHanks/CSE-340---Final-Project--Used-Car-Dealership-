@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import {fileURLToPath} from 'url';
 
-
+import pool from './src/models/db.js';
 import indexRoutes from './src/routes/index.js';
 import accountRoutes from './src/routes/accountRoutes.js';
 import vehicleRoutes from './src/routes/vehicleRoutes.js';
@@ -28,11 +28,30 @@ app.use('/', indexRoutes);
 app.use('/account', accountRoutes);
 app.use('/vehicles', vehicleRoutes);
 
+// pgAdmin Database connection
+app.get('/db-test', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT NOW()');
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Database connection failed');
+  }
+});
+
 // 404 page
 app.use((req, res) => {
   res.status(404).send('Page not found');
 });
 
+// temporary tests
+// console.log(process.env.DB_URL);
+
+// pool.query('SELECT NOW()')
+//   .then(result => console.log('DB worked:', result.rows[0]))
+//   .catch(error => console.error('DB failed:', error));
+
+// app listen
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
