@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import {fileURLToPath} from 'url';
+import session from 'express-session';
 
 import pool from './src/models/db.js';
 import indexRoutes from './src/routes/index.js';
@@ -22,6 +23,13 @@ app.set('views', path.join(__dirname, 'src', 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+  })
+);
 
 // Home, account, vehicle route
 app.use('/', indexRoutes);
@@ -44,12 +52,9 @@ app.use((req, res) => {
   res.status(404).send('Page not found');
 });
 
-// temporary tests
-// console.log(process.env.DB_URL);
 
-// pool.query('SELECT NOW()')
-//   .then(result => console.log('DB worked:', result.rows[0]))
-//   .catch(error => console.error('DB failed:', error));
+//temporary for bugs:
+
 
 // app listen
 app.listen(PORT, () => {
