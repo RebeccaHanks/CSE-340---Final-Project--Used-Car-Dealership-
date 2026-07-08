@@ -1,0 +1,40 @@
+<h1>Edit Vehicle</h1>
+
+<form action="/vehicles/edit/<%= vehicle.vehicle_id %>" method="POST">
+  <label>Category</label>
+  <select name="category_id" required>
+    <% categories.forEach(category => { %>
+      <option 
+        value="<%= category.category_id %>"
+        <%= category.category_id === vehicle.category_id ? 'selected' : '' %>>
+        <%= category.category_name %>
+      </option>
+    <% }) %>
+  </select>
+
+  <label>Year</label>
+  <input type="number" name="year" value="<%= vehicle.year %>" required>
+
+  <label>Make</label>
+  <input type="text" name="make" value="<%= vehicle.make %>" required>
+
+  <label>Model</label>
+  <input type="text" name="model" value="<%= vehicle.model %>" required>
+
+  <label>Price</label>
+  <input type="number" name="price" value="<%= vehicle.price %>" required>
+
+  <label>Mileage</label>
+  <input type="number" name="mileage" value="<%= vehicle.mileage %>" required>
+
+  <label>Color</label>
+  <input type="text" name="color" value="<%= vehicle.color %>">
+
+  <label>Description</label>
+  <textarea name="description"><%= vehicle.description %></textarea>
+
+  <label>Image URL</label>
+  <input type="text" name="image_url" value="<%= vehicle.image_url %>">
+
+  <button type="submit">Save Changes</button>
+</form>

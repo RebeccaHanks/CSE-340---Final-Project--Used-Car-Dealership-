@@ -1,0 +1,31 @@
+<h1>Manage Vehicles</h1>
+
+<a href="/vehicles/add">Add Vehicle</a>
+
+<table>
+  <thead>
+    <tr>
+      <th>Vehicle</th>
+      <th>Category</th>
+      <th>Price</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% vehicles.forEach(vehicle => { %>
+      <tr>
+        <td><%= vehicle.year %> <%= vehicle.make %> <%= vehicle.model %></td>
+        <td><%= vehicle.category_name %></td>
+        <td>$<%= vehicle.price %></td>
+        <td>
+          <a href="/vehicles/edit/<%= vehicle.vehicle_id %>">Edit</a>
+
+          <form action="/vehicles/delete/<%= vehicle.vehicle_id %>" method="POST" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>

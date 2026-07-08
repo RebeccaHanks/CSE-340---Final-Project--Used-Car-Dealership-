@@ -1,0 +1,38 @@
+<h1>Add Vehicle</h1>
+
+<form action="/vehicles/add" method="POST">
+  <label>Category</label>
+  <select name="category_id" required>
+    <% categories.forEach(category => { %>
+      <option value="<%= category.category_id %>">
+        <%= category.category_name %>
+      </option>
+    <% }) %>
+  </select>
+
+  <label>Year</label>
+  <input type="number" name="year" required>
+
+  <label>Make</label>
+  <input type="text" name="make" required>
+
+  <label>Model</label>
+  <input type="text" name="model" required>
+
+  <label>Price</label>
+  <input type="number" name="price" required>
+
+  <label>Mileage</label>
+  <input type="number" name="mileage" required>
+
+  <label>Color</label>
+  <input type="text" name="color">
+
+  <label>Description</label>
+  <textarea name="description"></textarea>
+
+  <label>Image URL</label>
+  <input type="text" name="image_url">
+
+  <button type="submit">Add Vehicle</button>
+</form>
