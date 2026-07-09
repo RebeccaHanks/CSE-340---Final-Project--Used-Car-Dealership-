@@ -1,38 +1,67 @@
-<h1>Add Vehicle</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
 
-<form action="/vehicles/add" method="POST">
-  <label>Category</label>
-  <select name="category_id" required>
-    <% categories.forEach(category => { %>
-      <option value="<%= category.category_id %>">
-        <%= category.category_name %>
-      </option>
-    <% }) %>
-  </select>
+<body>
 
-  <label>Year</label>
-  <input type="number" name="year" required>
+<header>
+  <h1>Hanks Auto Sales</h1>
 
-  <label>Make</label>
-  <input type="text" name="make" required>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/vehicles">Vehicles</a>
+    <a href="/account/login">Login</a>
+    <a href="/account/register">Register</a>
+  </nav>
+</header>
 
-  <label>Model</label>
-  <input type="text" name="model" required>
+<main>
 
-  <label>Price</label>
-  <input type="number" name="price" required>
+    <h1>Add Vehicle</h1>
 
-  <label>Mileage</label>
-  <input type="number" name="mileage" required>
+    <form action="/vehicles/add" method="POST">
+    <label>Category</label>
+    <select name="category_id" required>
+        <% categories.forEach(category => { %>
+        <option value="<%= category.category_id %>">
+            <%= category.category_name %>
+        </option>
+        <% }) %>
+    </select>
 
-  <label>Color</label>
-  <input type="text" name="color">
+    <label>Year</label>
+    <input type="number" name="year" required>
 
-  <label>Description</label>
-  <textarea name="description"></textarea>
+    <label>Make</label>
+    <input type="text" name="make" required>
 
-  <label>Image URL</label>
-  <input type="text" name="image_url">
+    <label>Model</label>
+    <input type="text" name="model" required>
 
-  <button type="submit">Add Vehicle</button>
-</form>
+    <label>Price</label>
+    <input type="number" name="price" required>
+
+    <label>Mileage</label>
+    <input type="number" name="mileage" required>
+
+    <label>Color</label>
+    <input type="text" name="color">
+
+    <label>Description</label>
+    <textarea name="description"></textarea>
+
+    <label>Image URL</label>
+    <input type="text" name="image_url">
+
+    <button type="submit">Add Vehicle</button>
+    </form>
+
+</main>
+
+</body>
+</html>

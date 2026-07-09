@@ -1,23 +1,47 @@
-<h1>Dashboard</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
 
-<p>Welcome <%= account.first_name %>!</p>
+<body>
 
-<p>Email: <%= account.email %></p>
+<header>
+  <h1>Hanks Auto Sales</h1>
 
-<p>Role: <%= account.role %></p>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/vehicles">Vehicles</a>
+    <a href="/account/login">Login</a>
+    <a href="/account/register">Register</a>
+  </nav>
+</header>
 
-<% if (account.role === 'employee' || account.role === 'owner') { %>
-  <p>
-    <a href="/vehicles/manage">Manage Vehicles</a>
-  </p>
-<% } %>
+<main>
 
-<% if (account.role === 'owner') { %>
-  <p>
-    <a href="/account/manage">Manage Accounts</a>
-  </p>
-<% } %>
+    <h1>Dashboard</h1>
 
-<p>
-  <a href="/account/logout">Logout</a>
-</p>
+    <p>Welcome <%= account.first_name %>!</p>
+
+    <p>Email: <%= account.email %></p>
+
+    <p>Role: <%= account.role %></p>
+
+    <div class="dashboard-links">
+    <% if (account.role === 'employee' || account.role === 'owner') { %>
+        <a href="/vehicles/manage">Manage Vehicles</a>
+    <% } %>
+
+    <% if (account.role === 'owner') { %>
+        <a href="/account/manage">Manage Accounts</a>
+    <% } %>
+
+    <a href="/account/logout">Logout</a>
+    </div>
+</main>
+
+</body>
+</html>

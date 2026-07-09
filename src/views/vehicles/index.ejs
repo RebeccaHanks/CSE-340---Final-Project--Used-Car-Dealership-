@@ -1,12 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+
+<header>
+  <h1>Hanks Auto Sales</h1>
+
+  <nav>
+    <a href="/">Home</a>
+    <a href="/vehicles">Vehicles</a>
+    <a href="/account/login">Login</a>
+    <a href="/account/register">Register</a>
+  </nav>
+</header>
+
+<main>
+
 <h1>Vehicles</h1>
 
-<section class="vehicle-list">
+<div class="vehicle-grid">
   <% vehicles.forEach(vehicle => { %>
     <div class="vehicle-card">
+      <% if (vehicle.image_url) { %>
+        <img src="<%= vehicle.image_url %>" alt="<%= vehicle.make %> <%= vehicle.model %>">
+      <% } %>
+
       <h2><%= vehicle.year %> <%= vehicle.make %> <%= vehicle.model %></h2>
-      <p>Price: $<%= vehicle.price %></p>
-      <p>Mileage: <%= vehicle.mileage %> miles</p>
-      <a href="/vehicles/<%= vehicle.vehicle_id %>">View Details</a>
+      <p><strong>Price:</strong> $<%= vehicle.price %></p>
+      <p><strong>Mileage:</strong> <%= vehicle.mileage %></p>
+
+      <a class="button" href="/vehicles/<%= vehicle.vehicle_id %>">View Details</a>
     </div>
   <% }) %>
-</section>
+</div>
+
+</main>
+
+</body>
+</html>

@@ -1,8 +1,36 @@
-<h1><%= vehicle.year %> <%= vehicle.make %> <%= vehicle.model %></h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
 
-<p><strong>Price:</strong> $<%= vehicle.price %></p>
-<p><strong>Mileage:</strong> <%= vehicle.mileage %> miles</p>
-<p><strong>Color:</strong> <%= vehicle.color %></p>
-<p><strong>Description:</strong> <%= vehicle.description %></p>
+<body>
 
-<a href="/vehicles">Back to Vehicles</a>
+<header>
+  <h1>Hanks Auto Sales</h1>
+
+  <nav>
+    <a href="/">Home</a>
+    <a href="/vehicles">Vehicles</a>
+    <a href="/account/login">Login</a>
+    <a href="/account/register">Register</a>
+  </nav>
+</header>
+
+<main>
+
+    <h1><%= vehicle.year %> <%= vehicle.make %> <%= vehicle.model %></h1>
+
+    <p><strong>Price:</strong> $<%= vehicle.price %></p>
+    <p><strong>Mileage:</strong> <%= vehicle.mileage %> miles</p>
+    <p><strong>Color:</strong> <%= vehicle.color %></p>
+    <p><strong>Description:</strong> <%= vehicle.description %></p>
+
+    <a href="/vehicles">Back to Vehicles</a>
+</main>
+
+</body>
+</html>
