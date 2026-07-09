@@ -6,4 +6,18 @@
 
 <p>Role: <%= account.role %></p>
 
-<a href="/account/logout">Logout</a>
+<% if (account.role === 'employee' || account.role === 'owner') { %>
+  <p>
+    <a href="/vehicles/manage">Manage Vehicles</a>
+  </p>
+<% } %>
+
+<% if (account.role === 'owner') { %>
+  <p>
+    <a href="/account/manage">Manage Accounts</a>
+  </p>
+<% } %>
+
+<p>
+  <a href="/account/logout">Logout</a>
+</p>
