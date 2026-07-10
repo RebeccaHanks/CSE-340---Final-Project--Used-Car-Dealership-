@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<header>
+  <h1>Hanks Auto Sales</h1>
+
+  <nav>
+    <a href="/">Home</a>
+    <a href="/vehicles">Vehicles</a>
+    <a href="/account/dashboard">Dashboard</a>
+    <a href="/service">Service Requests</a>
+    <a href="/account/logout">Logout</a>
+  </nav>
+</header>
+
+<main>
+  <h2>Service Requests</h2>
+
+  <section>
+    <h3>Create a Service Request</h3>
+
+    <form action="/service" method="POST">
+      <label for="vehicle_id">Vehicle ID (optional)</label>
+      <input
+        type="number"
+        id="vehicle_id"
+        name="vehicle_id"
+      >
+
+      <label for="service_type">Service Type</label>
+      <select
+        id="service_type"
+        name="service_type"
+        required
+      >
+        <option value="">Choose a service</option>
+        <option value="Oil Change">Oil Change</option>
+        <option value="Inspection">Inspection</option>
+        <option value="Tire Service">Tire Service</option>
+        <option value="Brake Service">Brake Service</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        name="description"
+        rows="5"
+        required
+      ></textarea>
+
+      <button type="submit">Submit Request</button>
+    </form>
+  </section>
+
+  <section>
+    <h3>Submitted Requests</h3>
+
+    <% if (!requests || requests.length === 0) { %>
+
+      <p>No service requests have been submitted yet.</p>
+
+    <% } else { %>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Employee Notes</th>
+            <th>Date</th>
+
+            <% if (
+              account &&
+              (account.role === 'employee' || account.role === 'owner')
+            ) { %>
+              <th>Manage</th>
+            <% } %>
+
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <% requests.forEach(request => { %>
+
+            <tr>
+              <td><%= request.service_type %></td>
+
+              <td><%= request.description %></td>
+
+              <td><%= request.status %></td>
+
+              <td><%= request.employee_notes || 'None' %></td>
+
+              <td>
+                <%= new Date(
+                  request.created_at
+                ).toLocaleDateString() %>
+              </td>
+
+              <% if (
+                account &&
+                (account.role === 'employee' || account.role === 'owner')
+              ) { %>
+
+                <td>
+
+                  <form
+                    action="/service/<%= request.service_id %>/update"
+                    method="POST"
+                  >
+
+                    <select
+                      name="status"
+                      required
+                    >
+                      <option
+                        value="Submitted"
+                        <%= request.status === 'Submitted'
+                          ? 'selected'
+                          : '' %>
+                      >
+                        Submitted
+                      </option>
+
+                      <option
+                        value="In Progress"
+                        <%= request.status === 'In Progress'
+                          ? 'selected'
+                          : '' %>
+                      >
+                        In Progress
+                      </option>
+
+                      <option
+                        value="Completed"
+                        <%= request.status === 'Completed'
+                          ? 'selected'
+                          : '' %>
+                      >
+                        Completed
+                      </option>
+                    </select>
+
+                    <textarea
+                      name="employee_notes"
+                      rows="3"
+                    ><%= request.employee_notes || '' %></textarea>
+
+                    <button type="submit">
+                      Update
+                    </button>
+
+                  </form>
+
+                </td>
+
+              <% } %>
+
+            </tr>
+
+          <% }) %>
+
+        </tbody>
+      </table>
+
+    <% } %>
+
+  </section>
+
+</main>
+
+</body>
+</html>

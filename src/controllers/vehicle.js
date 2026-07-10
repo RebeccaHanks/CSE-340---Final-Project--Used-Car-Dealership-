@@ -7,6 +7,7 @@ import {
 } from '../models/vehicle.js';
 
 import { getAllCategories } from '../models/category.js';
+import { getReviewsByVehicle } from '../models/review.js';
 
 export async function showVehicles(req, res) {
   try {
@@ -25,6 +26,7 @@ export async function showVehicles(req, res) {
 export async function showVehicleDetail(req, res) {
   try {
     const vehicle = await getVehicleById(req.params.id);
+    const reviews = await getReviewsByVehicle(req.params.id);
 
     if (!vehicle) {
       return res.status(404).send('Vehicle not found');
@@ -32,7 +34,9 @@ export async function showVehicleDetail(req, res) {
 
     res.render('vehicles/detail', {
       title: `${vehicle.year} ${vehicle.make} ${vehicle.model}`,
-      vehicle
+      vehicle,
+      reviews,
+      account: req.session.account || null
     });
   } catch (error) {
     console.error(error);

@@ -7,6 +7,8 @@ import pool from './src/models/db.js';
 import indexRoutes from './src/routes/index.js';
 import accountRoutes from './src/routes/accountRoutes.js';
 import vehicleRoutes from './src/routes/vehicleRoutes.js';
+import serviceRoutes from './src/routes/serviceRoutes.js';
+import reviewRoutes from './src/routes/reviewRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -35,6 +37,8 @@ app.use(
 app.use('/', indexRoutes);
 app.use('/account', accountRoutes);
 app.use('/vehicles', vehicleRoutes);
+app.use('/service', serviceRoutes);
+app.use('/reviews', reviewRoutes);
 
 // pgAdmin Database connection
 app.get('/db-test', async (req, res) => {

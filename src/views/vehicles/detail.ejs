@@ -15,21 +15,110 @@
   <nav>
     <a href="/">Home</a>
     <a href="/vehicles">Vehicles</a>
-    <a href="/account/login">Login</a>
-    <a href="/account/register">Register</a>
+
+    <% if (account) { %>
+      <a href="/account/dashboard">Dashboard</a>
+      <a href="/account/logout">Logout</a>
+    <% } else { %>
+      <a href="/account/login">Login</a>
+      <a href="/account/register">Register</a>
+    <% } %>
   </nav>
 </header>
 
 <main>
+  <h1>
+    <%= vehicle.year %>
+    <%= vehicle.make %>
+    <%= vehicle.model %>
+  </h1>
 
-    <h1><%= vehicle.year %> <%= vehicle.make %> <%= vehicle.model %></h1>
+  <p><strong>Price:</strong> $<%= vehicle.price %></p>
+  <p><strong>Mileage:</strong> <%= vehicle.mileage %> miles</p>
+  <p><strong>Color:</strong> <%= vehicle.color %></p>
+  <p><strong>Description:</strong> <%= vehicle.description %></p>
 
-    <p><strong>Price:</strong> $<%= vehicle.price %></p>
-    <p><strong>Mileage:</strong> <%= vehicle.mileage %> miles</p>
-    <p><strong>Color:</strong> <%= vehicle.color %></p>
-    <p><strong>Description:</strong> <%= vehicle.description %></p>
+  <hr>
 
-    <a href="/vehicles">Back to Vehicles</a>
+  <section>
+    <h2>Customer Reviews</h2>
+
+    <% if (reviews.length === 0) { %>
+      <p>No reviews have been added yet.</p>
+    <% } else { %>
+      <% reviews.forEach(review => { %>
+        <article class="review">
+          <h3>
+            <%= review.first_name %>
+            <%= review.last_name %>
+          </h3>
+
+          <p>
+            <strong>Rating:</strong>
+            <%= review.rating %> out of 5
+          </p>
+
+          <p><%= review.comment %></p>
+
+          <% if (
+            account &&
+            (account.roleName === 'employee' ||
+            account.roleName === 'owner')
+          ) { %>
+            <form
+              action="/reviews/<%= review.review_id %>/delete"
+              method="POST"
+            >
+              <button type="submit">Delete Review</button>
+            </form>
+          <% } %>
+        </article>
+      <% }) %>
+    <% } %>
+  </section>
+
+  <hr>
+
+  <% if (account) { %>
+    <section>
+      <h2>Leave a Review</h2>
+
+      <form action="/reviews" method="POST">
+        <input
+          type="hidden"
+          name="vehicle_id"
+          value="<%= vehicle.vehicle_id %>"
+        >
+
+        <label for="rating">Rating</label>
+        <select id="rating" name="rating" required>
+          <option value="">Choose a rating</option>
+          <option value="5">5 - Excellent</option>
+          <option value="4">4 - Good</option>
+          <option value="3">3 - Average</option>
+          <option value="2">2 - Poor</option>
+          <option value="1">1 - Very Poor</option>
+        </select>
+
+        <label for="comment">Comment</label>
+        <textarea
+          id="comment"
+          name="comment"
+          rows="5"
+          required
+        ></textarea>
+
+        <button type="submit">Submit Review</button>
+      </form>
+    </section>
+  <% } else { %>
+    <p>
+      <a href="/account/login">Log in</a>
+      to leave a review.
+    </p>
+  <% } %>
+
+  <a href="/vehicles">Back to Vehicles</a>
 </main>
 
 </body>

@@ -1,9 +1,9 @@
 import express from 'express';
+
 import {
-  buildServicePage,
-  createRequest,
-  updateRequest
-} from '../controllers/service.js';
+  addReview,
+  removeReview
+} from '../controllers/review.js';
 
 import {
   requireLogin,
@@ -12,14 +12,17 @@ import {
 
 const router = express.Router();
 
-router.get('/', requireLogin, buildServicePage);
-router.post('/', requireLogin, createRequest);
+router.post(
+  '/',
+  requireLogin,
+  addReview
+);
 
 router.post(
-  '/:id/update',
+  '/:id/delete',
   requireLogin,
   requireEmployee,
-  updateRequest
+  removeReview
 );
 
 export default router;
