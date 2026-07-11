@@ -33,6 +33,11 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  res.locals.account = req.session.account || null;
+  next();
+});
+
 // Home, account, vehicle route
 app.use('/', indexRoutes);
 app.use('/account', accountRoutes);

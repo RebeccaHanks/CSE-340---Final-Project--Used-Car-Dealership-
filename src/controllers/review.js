@@ -28,9 +28,15 @@ export async function removeReview(req, res) {
   try {
     const { id } = req.params;
 
-    await deleteReview(id);
+    const returnPage = req.get('Referer') || '/vehicles';
 
-    res.redirect('back');
+    const deletedReview = await deleteReview(id);
+
+    if (!deletedReview) {
+      return res.status(404).send('Review not found');
+    }
+
+    res.redirect(returnPage);
   } catch (error) {
     console.error(error);
     res.status(500).send('Error deleting review');

@@ -17,7 +17,16 @@
     <a href="/vehicles">Vehicles</a>
 
     <% if (account) { %>
+      <a href="/service">Service Requests</a>
       <a href="/account/dashboard">Dashboard</a>
+
+      <% if (
+        account.role === 'employee' ||
+        account.role === 'owner'
+      ) { %>
+        <a href="/vehicles/manage">Manage Vehicles</a>
+      <% } %>
+
       <a href="/account/logout">Logout</a>
     <% } else { %>
       <a href="/account/login">Login</a>
@@ -27,6 +36,9 @@
 </header>
 
 <main>
+
+  <!-- <pre><%= JSON.stringify(account, null, 2) %></pre> -->
+
   <h1>
     <%= vehicle.year %>
     <%= vehicle.make %>
@@ -62,8 +74,7 @@
 
           <% if (
             account &&
-            (account.roleName === 'employee' ||
-            account.roleName === 'owner')
+            (account.role === 'employee' || account.role === 'owner')
           ) { %>
             <form
               action="/reviews/<%= review.review_id %>/delete"
